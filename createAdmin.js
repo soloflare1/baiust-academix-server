@@ -8,7 +8,7 @@ async function main() {
   console.log("DB Connected");
 
   // Delete existing admin
-  await User.deleteOne({ email: "nosratee22@gmail.com" });
+  await User.deleteOne({ email: "admin@gmail.com" });
   console.log("Cleared old admin");
 
   // Create with pre-hashed password to avoid any issues
@@ -16,7 +16,7 @@ async function main() {
 
   await User.collection.insertOne({
     name: "Nosratee Jahan Naba",
-    email: "nosratee22@gmail.com",
+    email: "admin@gmail.com",
     studentId: "ADMIN001",
     password: hashedPassword,
     role: "admin",
@@ -26,8 +26,8 @@ async function main() {
     updatedAt: new Date(),
   });
 
-  console.log("✓ Admin created!");
-  console.log("  Email:    nosratee22@gmail.com");
+  console.log("  Admin created!");
+  console.log("  Email:    admin@gmail.com");
   console.log("  Password: admin123");
   mongoose.disconnect();
 }
