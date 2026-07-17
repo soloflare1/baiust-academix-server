@@ -15,7 +15,23 @@ const adminRoutes = require("./routes/adminRoutes");
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:5173" }));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://baiust-academix-client.vercel.app"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      return callback(null, true);
+    } else {
+      return callback(new Error("CORS policy limits access"), false);
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(morgan("dev"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -30,4 +46,11 @@ app.get("/api/health", (_req, res) => res.json({ status: "ok", project: "BAIUST 
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-connectDB().then(() => { app.listen(PORT, () => console.log(`[Server] Running on port ${PORT}`)); });
+
+connectDB()
+  .then(() => { 
+    app.listen(PORT, () => console.log(`[Server] Running on port ${PORT}`)); 
+  })
+  .catch((err) => {
+    console.error(err);
+  });
