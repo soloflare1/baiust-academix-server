@@ -53,7 +53,6 @@ backend/
 Configure the following environment variables in your deployment platform (Render) or create a `.env` file for local development:
 
 ```
-PORT=5000
 MONGO_URI=your_mongodb_atlas_connection_string
 JWT_SECRET=your_jwt_secret_key
 JWT_EXPIRES_IN=7d
