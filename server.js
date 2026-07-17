@@ -41,21 +41,22 @@ app.use("/api/users",     userRoutes);
 app.use("/api/resources", resourceRoutes);
 app.use("/api/admin",     adminRoutes);
 
-app.get("/", (_req, res) => {
-  res.json({
-    name:        "BAIUST Academix API",
-    version:     "1.0.0",
-    description: "Backend REST API for the BAIUST Academix academic resource platform",
-    status:      "operational",
-    endpoints: {
-      health:    "/api/health",
-      auth:      "/api/auth",
-      resources: "/api/resources",
-      admin:     "/api/admin",
-    },
-    client: "https://baiust-academix-client.vercel.app",
-  });
-});
+const apiInfo = {
+  name:        "BAIUST Academix API",
+  version:     "1.0.0",
+  description: "Backend REST API for the BAIUST Academix academic resource platform",
+  status:      "operational",
+  endpoints: {
+    health:    "/api/health",
+    auth:      "/api/auth",
+    resources: "/api/resources",
+    admin:     "/api/admin",
+  },
+  client: "https://baiust-academix-client.vercel.app",
+};
+
+app.get("/",    (_req, res) => res.json(apiInfo));
+app.get("/api", (_req, res) => res.json(apiInfo));
 
 app.get("/api/health", (_req, res) => res.json({ status: "ok", project: "BAIUST Academix" }));
 
