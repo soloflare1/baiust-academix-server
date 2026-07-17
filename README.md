@@ -1,6 +1,10 @@
 # BAIUST Academix — Server
 
-This repository contains the backend REST API for the BAIUST Academix academic resource sharing platform.
+BAIUST Academix consolidates the academic resources of the Department of Computer Science and Engineering, BAIUST — previously scattered across messaging groups, personal drives and informal peer sharing — into a single structured, searchable and administrator-verified platform accessible to every enrolled CSE student.
+
+The platform covers the complete 8-semester BAIUST CSE curriculum, providing organised access to course textbooks, lecture notes and instructional video content across 60+ registered courses, from Level 1.1 through Level 4.2.
+
+This repository contains the backend REST API.
 
 ## Live Deployment
 
@@ -59,7 +63,7 @@ JWT_EXPIRES_IN=7d
 CLIENT_URL=https://baiust-academix-client.vercel.app
 ```
 
-For production deployment on Render, these variables are set directly in the Render service dashboard under Environment.
+For production deployment on Render, these variables are set directly in the Render service dashboard under Environment. The PORT variable is assigned automatically by Render and should not be specified manually.
 
 ## Installation and Setup
 
