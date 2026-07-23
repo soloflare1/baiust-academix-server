@@ -21,12 +21,21 @@ exports.register = async (req, res) => {
   });
 };
 
-// Login — check approved + active
+// Login — check approved + active + route restriction
 exports.login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, isAdminLogin } = req.body;
   const user = await User.findOne({ email }).select("+password");
+
   if (!user || !(await user.comparePassword(password)))
     return res.status(401).json({ success: false, message: "Invalid email address or password." });
+
+  // Admin trying to login from student login page
+  if (user.role === "admin" && !isAdminLogin)
+    return res.status(403).json({ success: false, message: "Administrator accounts must sign in through the Administrator Sign In page." });
+
+  // Student trying to login from admin login page
+  if (user.role !== "admin" && isAdminLogin)
+    return res.status(403).json({ success: false, message: "This login page is restricted to administrators only." });
 
   if (user.role !== "admin") {
     if (!user.isApproved)
