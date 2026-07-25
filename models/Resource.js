@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const resourceSchema = new mongoose.Schema({
   title: { type: String, required: true, trim: true },
   description: { type: String, default: "" },
-  type: { type: String, enum: ["book", "note", "video", "question"], required: true },
+  type: { type: String, enum: ["book", "note", "video", "other"], required: true },
   fileUrl: { type: String, default: "" },
   level: { type: Number, required: true },
   term: { type: Number, required: true },
