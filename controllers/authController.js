@@ -9,7 +9,7 @@ const sendAuth = (res, user, statusCode = 200) => {
   res.status(statusCode).json({ success: true, token, user });
 };
 
-// Register — starts as pending (isApproved: false)
+
 exports.register = async (req, res) => {
   const { name, email, studentId, password } = req.body;
   const existing = await User.findOne({ email });
@@ -21,7 +21,7 @@ exports.register = async (req, res) => {
   });
 };
 
-// Login — check approved + active + route restriction
+
 exports.login = async (req, res) => {
   const { email, password, isAdminLogin } = req.body;
   const user = await User.findOne({ email }).select("+password");
@@ -29,11 +29,11 @@ exports.login = async (req, res) => {
   if (!user || !(await user.comparePassword(password)))
     return res.status(401).json({ success: false, message: "Invalid email address or password." });
 
-  // Admin trying to login from student login page
+  
   if (user.role === "admin" && !isAdminLogin)
     return res.status(403).json({ success: false, message: "Administrator accounts must sign in through the Administrator Sign In page." });
 
-  // Student trying to login from admin login page
+
   if (user.role !== "admin" && isAdminLogin)
     return res.status(403).json({ success: false, message: "This login page is restricted to administrators only." });
 

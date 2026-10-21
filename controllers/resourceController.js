@@ -23,8 +23,9 @@ exports.getResources = async (req, res) => {
 exports.createResource = async (req, res) => {
   const { title, description, type, semId, course, level, term, fileUrl } = req.body;
 
-  
   const finalUrl = req.file?.path || fileUrl || "";
+
+  const status = req.user.role === "admin" ? "approved" : "pending";
 
   const resource = await Resource.create({
     title, description, type, semId, course,
@@ -32,7 +33,7 @@ exports.createResource = async (req, res) => {
     term:  Number(term),
     fileUrl: finalUrl,
     uploadedBy: req.user._id,
-    status: "pending",
+    status,
   });
 
   res.status(201).json({ success: true, data: resource });

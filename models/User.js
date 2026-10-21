@@ -7,8 +7,8 @@ const userSchema = new mongoose.Schema({
   studentId: { type: String, default: "" },
   password:  { type: String, required: true, select: false },
   role:      { type: String, enum: ["student", "admin"], default: "student" },
-  isActive:  { type: Boolean, default: false }, // students start inactive until approved
-  isApproved:{ type: Boolean, default: false }, // admin must approve first
+  isActive:  { type: Boolean, default: false }, 
+  isApproved:{ type: Boolean, default: false },
 }, { timestamps: true });
 
 userSchema.pre("save", async function (next) {
